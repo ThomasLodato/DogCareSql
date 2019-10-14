@@ -67,6 +67,7 @@ cui_capacidad_maxima integer not null,
 cui_tarifa_diaria real not null,
 cui_biografia varchar(150) not null,
 cui_fk_lugar integer not null,
+cui_api_key varchar(100),
 Constraint pk_id_cuidador primary key (cui_id),
 Constraint fk_lugar_cuidador foreign key (cui_fk_lugar) references Lugar(lug_id)
 );
@@ -82,6 +83,7 @@ own_correo varchar(50) not null unique,
 own_foto_perfil bytea,
 own_telefono varchar(50) not null,
 own_fk_lugar integer not null,
+own_api_key varchar(100),
 Constraint pk_id_owner primary key (own_id),
 Constraint fk_lugar_owner foreign key (own_fk_lugar) references Lugar(lug_id)
 );
@@ -97,6 +99,7 @@ cal_correo varchar(50) not null unique,
 cal_foto_perfil bytea,
 cal_telefono varchar(50) not null,
 cal_tipo_usuario varchar(50) not null,
+cal_api_key varchar(100),
 cal_fk_lugar integer not null,
 Constraint pk_id_call_center primary key (cal_id),
 Constraint fk_lugar_call_center foreign key (cal_fk_lugar) references Lugar(lug_id),
