@@ -37,3 +37,33 @@ drop column cui_correo,
 drop column cui_foto_perfil,
 drop column cui_telefono,
 drop column cui_api_key;
+
+drop table usu_acc;
+drop table call_center;
+
+create table call_center(
+cal_id serial not null unique,
+cal_nombre varchar(50) not null,
+cal_apellido varchar(50) not null,
+cal_fecha_nacimiento date not null,
+cal_correo varchar(50) not null unique,
+cal_telefono varchar(15) not null,
+cal_password varchar(50) not null,
+cal_tipo_usuario varchar(10) not null,
+Constraint pk_id_call_center primary key (cal_id),
+Constraint check_tipo_usuario check(cal_tipo_usuario IN ('supervisor','operador'))
+);
+
+create table usu_acc(
+usc_id serial not null unique,
+usc_fk_accion serial not null,
+usc_fk_cuidador integer,
+usc_fk_owner integer,
+usc_fk_call_center integer,
+usc_fecha_ejecucion date not null,
+Constraint pk_id_usu_acc primary key (usc_id),
+Constraint fk_accion_usu_acc foreign key (usc_fk_accion) references Accion(acc_id),
+Constraint fk_cuidador_usu_acc foreign key (usc_fk_cuidador) references Cuidador(cui_id),
+Constraint fk_owner_usu_acc foreign key (usc_fk_owner) references Owner(own_id),
+Constraint fk_call_center_usu_acc foreign key (usc_fk_call_center) references Call_center(cal_id)
+);
