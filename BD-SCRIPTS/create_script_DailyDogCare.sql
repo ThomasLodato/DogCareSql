@@ -55,37 +55,40 @@ Constraint pk_id_accion primary key (acc_id)
 
 Create table Cuidador(
 cui_id serial not null unique,
-cui_nombre1 varchar(50) not null,
-cui_nombre2 varchar(50),
-cui_apellido1 varchar(50) not null,
-cui_apellido2 varchar(50),
-cui_fecha_nacimiento date not null,
-cui_correo varchar(50) not null unique,
-cui_foto_perfil bytea,
-cui_telefono varchar(50) not null,
 cui_capacidad_maxima integer not null,
 cui_tarifa_diaria real not null,
 cui_biografia varchar(150) not null,
 cui_fk_lugar integer not null,
-cui_api_key varchar(100),
+cui_fk_usuario integet not null unique,
 Constraint pk_id_cuidador primary key (cui_id),
 Constraint fk_lugar_cuidador foreign key (cui_fk_lugar) references Lugar(lug_id)
 );
 
 Create table Owner(
 own_id serial not null unique,
-own_nombre1 varchar(50) not null,
-own_nombre2 varchar(50),
-own_apellido1 varchar(50) not null,
-own_apellido2 varchar(50),
-own_fecha_nacimiento date not null,
-own_correo varchar(50) not null unique,
-own_foto_perfil bytea,
-own_telefono varchar(50) not null,
 own_fk_lugar integer not null,
-own_api_key varchar(100),
 Constraint pk_id_owner primary key (own_id),
 Constraint fk_lugar_owner foreign key (own_fk_lugar) references Lugar(lug_id)
+);
+
+Create table Usuario(
+usu_id serial not null unique,
+usu_nombre1 varchar(50) not null,
+usu_nombre2 varchar(50) not null,
+usu_apellido1 varchar(50) not null,
+usu_apellido2 varchar(50) not null,
+usu_fecha_nacimiento date not null,
+usu_correo varchar(50) not null unique,
+usu_foto_perfil varchar(100),
+usu_telefono varchar(50) not null,
+usu_api_key varchar(200),
+usu_tipo varchar(10) not null,
+usu_fk_cuidador integer,
+usu_fk_owner integer,
+Constraint pk_id_usuario primary key (usu_id),
+Constraint fk_cuidador_usuario foreign key (usu_fk_cuidador) references Cuidador(cui_id),
+Constraint fk_owner_usuario foreign key (usu_fk_owner) references Owner(own_id),
+Constraint check_tipo_usuario check(usu_tipo IN ('cuidador','owner))
 );
 
 Create table Call_center(
