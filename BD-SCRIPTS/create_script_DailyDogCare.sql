@@ -53,24 +53,6 @@ acc_nombre varchar(50) not null,
 Constraint pk_id_accion primary key (acc_id)
 );
 
-Create table Cuidador(
-cui_id serial not null unique,
-cui_capacidad_maxima integer not null,
-cui_tarifa_diaria real not null,
-cui_biografia varchar(150) not null,
-cui_fk_lugar integer not null,
-cui_fk_usuario integet not null unique,
-Constraint pk_id_cuidador primary key (cui_id),
-Constraint fk_lugar_cuidador foreign key (cui_fk_lugar) references Lugar(lug_id)
-);
-
-Create table Owner(
-own_id serial not null unique,
-own_fk_lugar integer not null,
-Constraint pk_id_owner primary key (own_id),
-Constraint fk_lugar_owner foreign key (own_fk_lugar) references Lugar(lug_id)
-);
-
 Create table Usuario(
 usu_id serial not null unique,
 usu_nombre1 varchar(50) not null,
@@ -83,12 +65,29 @@ usu_foto_perfil varchar(100),
 usu_telefono varchar(50) not null,
 usu_api_key varchar(200),
 usu_tipo varchar(10) not null,
-usu_fk_cuidador integer,
-usu_fk_owner integer,
 Constraint pk_id_usuario primary key (usu_id),
-Constraint fk_cuidador_usuario foreign key (usu_fk_cuidador) references Cuidador(cui_id),
-Constraint fk_owner_usuario foreign key (usu_fk_owner) references Owner(own_id),
 Constraint check_tipo_usuario check(usu_tipo IN ('cuidador','owner))
+);
+
+Create table Cuidador(
+cui_id serial not null unique,
+cui_capacidad_maxima integer not null,
+cui_tarifa_diaria real not null,
+cui_biografia varchar(150) not null,
+cui_fk_lugar integer not null,
+cui_fk_usuario integet not null unique,
+Constraint pk_id_cuidador primary key (cui_id),
+Constraint fk_lugar_cuidador foreign key (cui_fk_lugar) references Lugar(lug_id),
+Constraint fk_usuario_cuidador foreign key (cui_fk_usuario) references Usuario(usu_id)
+);
+
+Create table Owner(
+own_id serial not null unique,
+own_fk_lugar integer not null,
+own_fk_usuario integer not null unique,
+Constraint pk_id_owner primary key (own_id),
+Constraint fk_lugar_owner foreign key (own_fk_lugar) references Lugar(lug_id),
+Constraint fk_usuario_owner foreign key (own_fk_usuario) references Usuadio(usu_id)
 );
 
 Create table Call_center(
