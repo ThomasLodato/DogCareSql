@@ -17,6 +17,7 @@ drop table if exists Perro;
 drop table if exists Call_center;
 drop table if exists Owner;
 drop table if exists Cuidador;
+drop table if exists Usuario;
 drop table if exists Accion;
 drop table if exists Uso;
 drop table if exists Tarea;
@@ -63,9 +64,11 @@ usu_fecha_nacimiento date not null,
 usu_correo varchar(50) not null unique,
 usu_foto_perfil varchar(100),
 usu_telefono varchar(50) not null,
+usu_fk_lugar integer not null,
 usu_api_key varchar(200),
 usu_tipo varchar(10) not null,
 Constraint pk_id_usuario primary key (usu_id),
+Constraint fk_lugar_usuario foreign key (usu_fk_lugar) references Lugar(lug_id),
 Constraint check_tipo_usuario check(usu_tipo IN ('cuidador','owner'))
 );
 
@@ -74,37 +77,28 @@ cui_id serial not null unique,
 cui_capacidad_maxima integer not null,
 cui_tarifa_diaria real not null,
 cui_biografia varchar(150) not null,
-cui_fk_lugar integer not null,
-cui_fk_usuario integet not null unique,
+cui_fk_usuario integer not null unique,
 Constraint pk_id_cuidador primary key (cui_id),
-Constraint fk_lugar_cuidador foreign key (cui_fk_lugar) references Lugar(lug_id),
 Constraint fk_usuario_cuidador foreign key (cui_fk_usuario) references Usuario(usu_id)
 );
 
 Create table Owner(
 own_id serial not null unique,
-own_fk_lugar integer not null,
 own_fk_usuario integer not null unique,
 Constraint pk_id_owner primary key (own_id),
-Constraint fk_lugar_owner foreign key (own_fk_lugar) references Lugar(lug_id),
-Constraint fk_usuario_owner foreign key (own_fk_usuario) references Usuadio(usu_id)
+Constraint fk_usuario_owner foreign key (own_fk_usuario) references Usuario(usu_id)
 );
 
-Create table Call_center(
+create table call_center(
 cal_id serial not null unique,
-cal_nombre1 varchar(50) not null,
-cal_nombre2 varchar(50),
-cal_apellido1 varchar(50) not null,
-cal_apellido2 varchar(50),
+cal_nombre varchar(50) not null,
+cal_apellido varchar(50) not null,
 cal_fecha_nacimiento date not null,
 cal_correo varchar(50) not null unique,
-cal_foto_perfil bytea,
-cal_telefono varchar(50) not null,
-cal_tipo_usuario varchar(50) not null,
-cal_api_key varchar(100),
-cal_fk_lugar integer not null,
+cal_telefono varchar(15) not null,
+cal_password varchar(50) not null,
+cal_tipo_usuario varchar(10) not null,
 Constraint pk_id_call_center primary key (cal_id),
-Constraint fk_lugar_call_center foreign key (cal_fk_lugar) references Lugar(lug_id),
 Constraint check_tipo_usuario check(cal_tipo_usuario IN ('supervisor','operador'))
 );
 
