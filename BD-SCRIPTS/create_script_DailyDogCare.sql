@@ -57,9 +57,9 @@ Constraint pk_id_accion primary key (acc_id)
 Create table Usuario(
 usu_id serial not null unique,
 usu_nombre1 varchar(50) not null,
-usu_nombre2 varchar(50) not null,
+usu_nombre2 varchar(50),
 usu_apellido1 varchar(50) not null,
-usu_apellido2 varchar(50) not null,
+usu_apellido2 varchar(50),
 usu_fecha_nacimiento date not null,
 usu_correo varchar(50) not null unique,
 usu_foto_perfil varchar(100),
