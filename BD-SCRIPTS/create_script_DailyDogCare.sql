@@ -66,7 +66,7 @@ usu_telefono varchar(50) not null,
 usu_api_key varchar(200),
 usu_tipo varchar(10) not null,
 Constraint pk_id_usuario primary key (usu_id),
-Constraint check_tipo_usuario check(usu_tipo IN ('cuidador','owner))
+Constraint check_tipo_usuario check(usu_tipo IN ('cuidador','owner'))
 );
 
 Create table Cuidador(
