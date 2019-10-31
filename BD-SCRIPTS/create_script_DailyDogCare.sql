@@ -39,7 +39,7 @@ lug_tipo varchar(20) not null,
 lug_fk_lugar integer,
 Constraint pk_id_lugar primary key (lug_id),
 Constraint fk_lugar_lugar foreign key (lug_fk_lugar) references Lugar(lug_id),
-Constraint check_tipo_lugar check (lug_tipo IN('estado','municipio','parroquia'))
+Constraint check_tipo_lugar check (lug_tipo IN('pais','estado','municipio','parroquia'))
 );
 
 Create table Tarea(
