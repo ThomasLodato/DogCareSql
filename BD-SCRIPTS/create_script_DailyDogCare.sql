@@ -166,8 +166,10 @@ ser_fecha_inicio date not null,
 ser_fecha_fin date not null,
 ser_fk_owner integer not null,
 ser_fk_cuidador integer not null,
+ser_fk_perro integer not null,
 Constraint pk_id_servicio primary key (ser_id),
 Constraint fk_owner_servicio foreign key (ser_fk_owner) references Owner(own_id),
+Constraint fk_perro_servicio foreign key (ser_fk_perro) references Perro(per_id),
 Constraint fk_cuidador_servicio foreign key (ser_fk_cuidador) references Cuidador(cui_id)
 );
 
