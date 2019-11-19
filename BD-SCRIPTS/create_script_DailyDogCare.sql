@@ -76,7 +76,7 @@ Create table Cuidador(
 cui_id serial not null unique,
 cui_capacidad_maxima integer not null,
 cui_tarifa_diaria real not null,
-cui_biografia varchar(150) not null,
+cui_biografia varchar(150),
 cui_fk_usuario integer not null unique,
 Constraint pk_id_cuidador primary key (cui_id),
 Constraint fk_usuario_cuidador foreign key (cui_fk_usuario) references Usuario(usu_id)
