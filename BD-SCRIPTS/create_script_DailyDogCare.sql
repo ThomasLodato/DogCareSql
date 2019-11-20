@@ -168,9 +168,9 @@ ser_fk_owner integer not null,
 ser_fk_cuidador integer not null,
 ser_fk_perro integer not null,
 Constraint pk_id_servicio primary key (ser_id),
-Constraint fk_owner_servicio foreign key (ser_fk_owner) references Owner(own_id),
+Constraint fk_owner_servicio foreign key (ser_fk_owner) references Usuario(usu_id),
 Constraint fk_perro_servicio foreign key (ser_fk_perro) references Perro(per_id),
-Constraint fk_cuidador_servicio foreign key (ser_fk_cuidador) references Cuidador(cui_id)
+Constraint fk_cuidador_servicio foreign key (ser_fk_cuidador) references Usuario(usu_id)
 );
 
 Create table Calificacion(
@@ -189,12 +189,6 @@ csx_fk_servicio integer not null,
 Constraint pk_id_cui_ext_ser primary key (cxs_id),
 Constraint fk_cui_ext_csx foreign key (csx_fk_cui_ext) references Cui_ext(cxt_id),
 Constraint fk_servicio_csx foreign key (csx_fk_servicio) references Servicio(ser_id)
-);
-		
-Create table Estatus(
-est_id serial not null unique,
-est_nombre varchar(50) not null,
-Constraint pk_id_estatus primary key (est_id)
 );
 
 Create table Intercambio(
@@ -220,21 +214,21 @@ his_fk_servicio integer not null,
 Constraint fk_servicio_hist_pago foreign key (his_fk_servicio) references Servicio(ser_id)
 ); 
 
-Create table Ser_est(
-set_id serial not null unique,
-set_fecha_cambio date not null,
-set_fk_servicio integer not null,
-set_fk_estatus integer not null,
-Constraint pk_ser_est primary key (set_id),
-Constraint fk_servicio_ser_est foreign key (set_fk_servicio) references Servicio(ser_id),
-Constraint fk_estatus_ser_est foreign key (set_fk_estatus) references Estatus(est_id)
+Create table Estatus(
+est_id serial not null unique,
+est_fecha_cambio date not null,
+est_nombre varchar(50) not null,
+est_fk_servicio integer not null,
+Constraint pk_ser_est primary key (est_id),
+Constraint fk_servicio_est foreign key (est_fk_servicio) references Servicio(ser_id),
+Constraint check_estatus_servicio check(est_nombre IN('Reservado','En proceso', 'Cancelado', 'Finalizado'))
 );
 
-Create table Formacion(
+/*Create table Formacion(
 for_id serial not null unique,
 for_fk_tarea integer not null,
 for_fk_perro integer not null,
 Constraint pk_formacion primary key (for_id),
 Constraint fk_tarea_formacion foreign key (for_fk_tarea) references Tarea(tar_id),
 Constraint fk_perro_formacion foreign key (for_fk_perro) references Perro(per_id)
-);
+);*/
