@@ -1,7 +1,6 @@
 --------------------------------DROPS--------------------------------------
 drop table if exists Formacion;
 drop table if exists Cui_ext_ser;
-drop table if exists Ser_ext;
 drop table if exists Cui_ext;
 drop table if exists Ser_est;
 drop table if exists Hist_pago;
@@ -79,14 +78,14 @@ cui_tarifa_diaria real not null,
 cui_biografia varchar(150),
 cui_fk_usuario integer not null unique,
 Constraint pk_id_cuidador primary key (cui_id),
-Constraint fk_usuario_cuidador foreign key (cui_fk_usuario) references Usuario(usu_id)
+Constraint fk_usuario_cuidador foreign key (cui_fk_usuario) references Usuario(usu_id) on delete cascade
 );
 
 Create table Owner(
 own_id serial not null unique,
 own_fk_usuario integer not null unique,
 Constraint pk_id_owner primary key (own_id),
-Constraint fk_usuario_owner foreign key (own_fk_usuario) references Usuario(usu_id)
+Constraint fk_usuario_owner foreign key (own_fk_usuario) references Usuario(usu_id) on delete cascade
 );
 
 create table call_center(
@@ -116,7 +115,7 @@ per_fk_tarea integer,
 per_fk_owner integer not null,
 Constraint pk_id_perro primary key (per_id),
 Constraint fk_raza_perro foreign key (per_fk_raza) references Raza(raz_id),
-Constraint fk_owner_perro foreign key (per_fk_owner) references Owner(own_id),
+Constraint fk_owner_perro foreign key (per_fk_owner) references Owner(own_id) on delete cascade,
 Constraint fk_tarea_perro foreign key (per_fk_tarea) references Tarea(tar_id),
 Constraint check_microchip_perro check(per_microchip IN('si','no'))
 );
@@ -127,7 +126,7 @@ hor_fecha_inicio date not null,
 hor_fecha_fin date not null,
 hor_fk_cuidador integer not null,
 Constraint pk_id_horario primary key (hor_id),
-Constraint fk_cuidador_horario foreign key (hor_fk_cuidador) references Cuidador(cui_id)
+Constraint fk_cuidador_horario foreign key (hor_fk_cuidador) references Cuidador(cui_id) on delete cascade
 );
 
 Create table Extra(
@@ -142,22 +141,22 @@ cxt_fk_extra integer not null,
 cxt_fk_cuidador integer not null,
 cxt_precio real not null,
 Constraint pk_id_cui_ext primary key (cxt_id),
-Constraint fk_extra_cui_ext foreign key (cxt_fk_extra) references Extra(ext_id),
-Constraint fk_cuidador_cui_ext foreign key (cxt_fk_cuidador) references Cuidador(cui_id)
+Constraint fk_extra_cui_ext foreign key (cxt_fk_extra) references Extra(ext_id) on delete cascade,
+Constraint fk_cuidador_cui_ext foreign key (cxt_fk_cuidador) references Cuidador(cui_id) on delete cascade
 );
 									   							   
 Create table Usu_acc(
 usc_id serial not null unique,
 usc_fk_accion serial not null,
-usc_fk_cuidador integer,
+/*usc_fk_cuidador integer,
 usc_fk_owner integer,
-usc_fk_call_center integer,
+usc_fk_call_center integer,*/
 usc_fecha_ejecucion date not null,
 Constraint pk_id_usu_acc primary key (usc_id),
-Constraint fk_accion_usu_acc foreign key (usc_fk_accion) references Accion(acc_id),
-Constraint fk_cuidador_usu_acc foreign key (usc_fk_cuidador) references Cuidador(cui_id),
+Constraint fk_accion_usu_acc foreign key (usc_fk_accion) references Accion(acc_id) on delete cascade
+/*Constraint fk_cuidador_usu_acc foreign key (usc_fk_cuidador) references Cuidador(cui_id),
 Constraint fk_owner_usu_acc foreign key (usc_fk_owner) references Owner(own_id),
-Constraint fk_call_center_usu_acc foreign key (usc_fk_call_center) references Call_center(cal_id)
+Constraint fk_call_center_usu_acc foreign key (usc_fk_call_center) references Call_center(cal_id)*/
 );
 
 Create table Servicio(
@@ -168,9 +167,9 @@ ser_fk_owner integer not null,
 ser_fk_cuidador integer not null,
 ser_fk_perro integer not null,
 Constraint pk_id_servicio primary key (ser_id),
-Constraint fk_owner_servicio foreign key (ser_fk_owner) references Usuario(usu_id),
-Constraint fk_perro_servicio foreign key (ser_fk_perro) references Perro(per_id),
-Constraint fk_cuidador_servicio foreign key (ser_fk_cuidador) references Usuario(usu_id)
+Constraint fk_owner_servicio foreign key (ser_fk_owner) references Usuario(usu_id) on delete cascade,
+Constraint fk_perro_servicio foreign key (ser_fk_perro) references Perro(per_id) on delete cascade,
+Constraint fk_cuidador_servicio foreign key (ser_fk_cuidador) references Usuario(usu_id) on delete cascade
 );
 
 Create table Calificacion(
@@ -179,7 +178,7 @@ clf_puntuacion integer not null,
 clf_comentario varchar(200) not null,
 clf_fk_servicio integer not null,
 Constraint pk_id_calificacion primary key (clf_id),
-Constraint fk_servicio_calificacion foreign key (clf_fk_servicio) references Servicio(ser_id)
+Constraint fk_servicio_calificacion foreign key (clf_fk_servicio) references Servicio(ser_id) on delete cascade
 );
 
 Create table Cui_ext_ser(
@@ -187,8 +186,8 @@ cxs_id serial not null unique,
 csx_fk_cui_ext integer not null,
 csx_fk_servicio integer not null,
 Constraint pk_id_cui_ext_ser primary key (cxs_id),
-Constraint fk_cui_ext_csx foreign key (csx_fk_cui_ext) references Cui_ext(cxt_id),
-Constraint fk_servicio_csx foreign key (csx_fk_servicio) references Servicio(ser_id)
+Constraint fk_cui_ext_csx foreign key (csx_fk_cui_ext) references Cui_ext(cxt_id) on delete cascade,
+Constraint fk_servicio_csx foreign key (csx_fk_servicio) references Servicio(ser_id) on delete cascade
 );
 
 Create table Intercambio(
@@ -211,7 +210,7 @@ Create table Hist_pago(
 his_fecha_pago date not null,
 his_monto_total real not null,
 his_fk_servicio integer not null,
-Constraint fk_servicio_hist_pago foreign key (his_fk_servicio) references Servicio(ser_id)
+Constraint fk_servicio_hist_pago foreign key (his_fk_servicio) references Servicio(ser_id) on delete cascade
 ); 
 
 Create table Estatus(
@@ -220,7 +219,7 @@ est_fecha_cambio date not null,
 est_nombre varchar(50) not null,
 est_fk_servicio integer not null,
 Constraint pk_ser_est primary key (est_id),
-Constraint fk_servicio_est foreign key (est_fk_servicio) references Servicio(ser_id),
+Constraint fk_servicio_est foreign key (est_fk_servicio) references Servicio(ser_id) on delete cascade,
 Constraint check_estatus_servicio check(est_nombre IN('Reservado','En proceso', 'Cancelado', 'Finalizado'))
 );
 
