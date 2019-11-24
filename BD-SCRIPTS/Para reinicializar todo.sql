@@ -47,12 +47,6 @@ tar_nombre varchar(200) not null,
 Constraint pk_id_tarea primary key (tar_id)
 );
 
-Create table Accion(
-acc_id serial not null unique,
-acc_nombre varchar(50) not null,
-Constraint pk_id_accion primary key (acc_id)
-);
-
 Create table Usuario(
 usu_id serial not null unique,
 usu_nombre1 varchar(50) not null,
@@ -145,18 +139,12 @@ Constraint fk_extra_cui_ext foreign key (cxt_fk_extra) references Extra(ext_id) 
 Constraint fk_cuidador_cui_ext foreign key (cxt_fk_cuidador) references Cuidador(cui_id) on delete cascade
 );
 									   							   
-Create table Usu_acc(
-usc_id serial not null unique,
-usc_fk_accion serial not null,
-/*usc_fk_cuidador integer,
-usc_fk_owner integer,
-usc_fk_call_center integer,*/
-usc_fecha_ejecucion date not null,
-Constraint pk_id_usu_acc primary key (usc_id),
-Constraint fk_accion_usu_acc foreign key (usc_fk_accion) references Accion(acc_id) on delete cascade
-/*Constraint fk_cuidador_usu_acc foreign key (usc_fk_cuidador) references Cuidador(cui_id),
-Constraint fk_owner_usu_acc foreign key (usc_fk_owner) references Owner(own_id),
-Constraint fk_call_center_usu_acc foreign key (usc_fk_call_center) references Call_center(cal_id)*/
+Create table Accion(
+acc_id serial not null unique,
+acc_correo varchar(50) not null,
+acc_fecha date not null,
+acc_descripcion varchar(50) not null,
+Constraint pk_id_accion primary key (acc_id)
 );
 
 Create table Servicio(
