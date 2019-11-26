@@ -22,6 +22,7 @@ drop table if exists Uso;
 drop table if exists Tarea;
 drop table if exists Lugar;
 drop table if exists Raza;
+drop table if exists Eliminado;
 
 -------------------------------CREATES-------------------------------------
 
@@ -29,6 +30,12 @@ Create table Raza(
 raz_id serial not null unique,
 raz_nombre varchar(50) not null,
 Constraint pk_id_raza primary key (raz_id)
+);
+
+Create table Eliminado(
+eli_id serial not null unique,
+eli_correo varchar(50) not null,
+Constraint pk_id_eliminado primary key (eli_id)
 );
 
 Create table Lugar(
@@ -142,7 +149,7 @@ Constraint fk_cuidador_cui_ext foreign key (cxt_fk_cuidador) references Cuidador
 Create table Accion(
 acc_id serial not null unique,
 acc_correo varchar(50) not null,
-acc_fecha date not null,
+acc_fecha timestamp not null,
 acc_descripcion varchar(50) not null,
 Constraint pk_id_accion primary key (acc_id)
 );
