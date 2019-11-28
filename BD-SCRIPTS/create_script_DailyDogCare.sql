@@ -23,6 +23,7 @@ drop table if exists Tarea;
 drop table if exists Lugar;
 drop table if exists Raza;
 drop table if exists Eliminado;
+drop table if exists Constante;
 
 -------------------------------CREATES-------------------------------------
 
@@ -30,6 +31,13 @@ Create table Raza(
 raz_id serial not null unique,
 raz_nombre varchar(50) not null,
 Constraint pk_id_raza primary key (raz_id)
+);
+
+Create table Constante(
+con_id serial not null unique,
+con_identificador varchar(50) not null,
+con_valor varchar(50)not null,
+Constraint pk_id_constante primary key (con_id)
 );
 
 Create table Eliminado(
@@ -161,6 +169,9 @@ ser_fecha_fin date not null,
 ser_fk_owner integer not null,
 ser_fk_cuidador integer not null,
 ser_fk_perro integer not null,
+ser_precio float,
+ser_payemntid varchar(50),
+ser_chargeid varchar(50),
 Constraint pk_id_servicio primary key (ser_id),
 Constraint fk_owner_servicio foreign key (ser_fk_owner) references Usuario(usu_id) on delete cascade,
 Constraint fk_perro_servicio foreign key (ser_fk_perro) references Perro(per_id) on delete cascade,
