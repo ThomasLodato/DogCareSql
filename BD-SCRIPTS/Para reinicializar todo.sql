@@ -170,8 +170,9 @@ ser_fk_owner integer not null,
 ser_fk_cuidador integer not null,
 ser_fk_perro integer not null,
 ser_precio float,
-ser_payemntid varchar(50),
+ser_paymentid varchar(50),
 ser_chargeid varchar(50),
+ser_refundid varchar(50),
 Constraint pk_id_servicio primary key (ser_id),
 Constraint fk_owner_servicio foreign key (ser_fk_owner) references Usuario(usu_id) on delete cascade,
 Constraint fk_perro_servicio foreign key (ser_fk_perro) references Perro(per_id) on delete cascade,
@@ -226,7 +227,7 @@ est_nombre varchar(50) not null,
 est_fk_servicio integer not null,
 Constraint pk_ser_est primary key (est_id),
 Constraint fk_servicio_est foreign key (est_fk_servicio) references Servicio(ser_id) on delete cascade,
-Constraint check_estatus_servicio check(est_nombre IN('Reservado','En proceso', 'Cancelado', 'Finalizado'))
+Constraint check_estatus_servicio check(est_nombre IN('En proceso', 'Cancelado', 'Finalizado'))
 );
 
 /*Create table Formacion(
