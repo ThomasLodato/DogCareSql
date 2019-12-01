@@ -183,6 +183,7 @@ Create table Calificacion(
 clf_id serial not null unique,
 clf_puntuacion integer not null,
 clf_comentario varchar(200) not null,
+clf_fecha date not null,
 clf_fk_servicio integer not null,
 Constraint pk_id_calificacion primary key (clf_id),
 Constraint fk_servicio_calificacion foreign key (clf_fk_servicio) references Servicio(ser_id) on delete cascade
