@@ -766,6 +766,21 @@ insert into call_center (cal_nombre, cal_apellido, cal_fecha_nacimiento, cal_tel
 insert into usuario (usu_nombre1, usu_nombre2, usu_apellido1, usu_apellido2, usu_fecha_nacimiento, usu_correo, 
 usu_foto_perfil, usu_telefono, usu_fk_lugar, usu_api_key, usu_tipo) values ('Elena', null, 'Paez', null,
 DATE'1999-10-12', 'elena@gmail.com', 'foto', '0412367281', 361, '', 'owner');
+insert into usuario (usu_nombre1, usu_nombre2, usu_apellido1, usu_apellido2, usu_fecha_nacimiento, usu_correo, usu_foto_perfil, usu_telefono, usu_fk_lugar, usu_api_key, usu_tipo) values ('Carlos', null, 'Gonzalez', null,DATE'1996-11-12', 'carlos@gmail.com', 'facebook.com/fotocarlos', '0412364523', 361, '', 'owner');
+insert into owner (own_fk_usuario) values (2);
+insert into usuario (usu_id,usu_nombre1,usu_nombre2,usu_apellido1,usu_apellido2,usu_fecha_nacimiento,usu_correo,usu_foto_perfil,usu_telefono,usu_fk_lugar,usu_tipo)values (3,'Roberto','Jose','Andrade','Garcia','1990-02-10','roberto@gmail.com','facebook.com/fotoroberto','04165533849',361,'cuidador');
+insert into cuidador (cui_capacidad_maxima,cui_tarifa_diaria,cui_biografia,cui_fk_usuario) values (5,10,'Me gustan los perros',3);
+insert into usuario (usu_id,usu_nombre1,usu_nombre2,usu_apellido1,usu_apellido2,usu_fecha_nacimiento,usu_correo,usu_foto_perfil,usu_telefono,usu_fk_lugar,usu_tipo)values (4,'Julio','Alberto','Perez','Linares','1980-03-15','julio@gmail.com','facebook.com/fotojulio','04165123849',361,'cuidador');
+insert into cuidador (cui_capacidad_maxima,cui_tarifa_diaria,cui_biografia,cui_fk_usuario) values (5,10,'Me gustan mucho los perros',4);
+insert into usuario (usu_id,usu_nombre1,usu_nombre2,usu_apellido1,usu_apellido2,usu_fecha_nacimiento,usu_correo,usu_foto_perfil,usu_telefono,usu_fk_lugar,usu_tipo)values (5,'Luis','Arturo','Lopez','Perez','1995-11-19','luis@gmail.com','facebook.com/fotoluis','04163333849',365,'cuidador');
+insert into cuidador (cui_capacidad_maxima,cui_tarifa_diaria,cui_biografia,cui_fk_usuario) values (2,5,'Amante de los perros, solo perros medianos',5);
+insert into usuario (usu_id,usu_nombre1,usu_nombre2,usu_apellido1,usu_apellido2,usu_fecha_nacimiento,usu_correo,usu_foto_perfil,usu_telefono,usu_fk_lugar,usu_tipo)values (6,'Andrea','Daniela','Gomez','Chacon','1991-10-11','andrea@gmail.com','facebook.com/fotoandrea','04165533811',365,'cuidador');
+insert into cuidador (cui_capacidad_maxima,cui_tarifa_diaria,cui_biografia,cui_fk_usuario) values (5,15,'7 años de experiencia cuidando todo tipo de perros',6);
+insert into usuario (usu_id,usu_nombre1,usu_nombre2,usu_apellido1,usu_apellido2,usu_fecha_nacimiento,usu_correo,usu_foto_perfil,usu_telefono,usu_fk_lugar,usu_tipo)values (7,'Carolina','Andrea','Garcia','Suarez','1996-03-20','carolina@gmail.com','facebook.com/fotocarolina','041255356849',370,'cuidador');
+insert into cuidador (cui_capacidad_maxima,cui_tarifa_diaria,cui_biografia,cui_fk_usuario) values (2,7,'Solo cuido perros grandesm 3 años de experiencia',7);
+insert into usuario (usu_id,usu_nombre1,usu_nombre2,usu_apellido1,usu_apellido2,usu_fecha_nacimiento,usu_correo,usu_foto_perfil,usu_telefono,usu_fk_lugar,usu_tipo)values (8,'Oriana','Andrea','Andrade','Jimenez','1993-12-02','oriana@gmail.com','facebook.com/fotooriana','04123333849',370,'cuidador');
+insert into cuidador (cui_capacidad_maxima,cui_tarifa_diaria,cui_biografia,cui_fk_usuario) values (3,12,'2 años cuidando perros, solo perros pequeños',8);
+insert into cui_ext(cxt_fk_extra,cxt_fk_cuidador,cxt_precio) values (1,1,3),(2,1,2.5),(2,2,3),(1,2,2.5),(3,3,3),(4,3,4),(1,5,5),(3,5,5),(4,5,4),(3,6,3),(1,6,5)
 insert into owner (own_fk_usuario) values (1);
 insert into constante (con_identificador, con_valor) values ('margenGanancia', '2.5');
 insert into constante (con_identificador, con_valor) values ('stripeKey', 'sk_test_uM4WaCWqw5NrjkLWZU0I9Lcj003X7CZRaR');
